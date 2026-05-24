@@ -9,8 +9,8 @@ const videoElement = document.getElementById('hidden-video');
 const closeVideoBtn = document.getElementById('close-video-btn');
 const keywords = ['cats', 'watching', 'alien', 'protocol'];
 const partyKeywords = ['feest', 'dans', 'pieterjan', 'party'];
-let retryCount = 0;
-const maxRetries = 1;
+let recognition = null;
+let listeningActive = false;
 
 function requestMicrophonePermission() {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -37,6 +37,10 @@ function shouldActivateEasterEgg(transcript) {
 }
 
 function shouldShowPartyVideo(transcript) {
+    if (videoOverlay && videoOverlay.classList.contains('visible')) {
+        return false;
+    }
+
     const normalized = transcript.toLowerCase();
     const foundPartyKeywords = partyKeywords.filter(word => normalized.includes(word));
     console.log('Transcript:', transcript, 'Matched party keywords:', foundPartyKeywords);
@@ -57,7 +61,6 @@ function showVideoOverlay() {
 
     videoOverlay.classList.remove('hidden');
     videoOverlay.classList.add('visible');
-    resetTransmissionUI();
 }
 
 function hideVideoOverlay() {
@@ -79,8 +82,28 @@ if (videoElement) {
 }
 
 function resetTransmissionUI() {
-    transmissionBtn.disabled = false;
     transmissionBtn.textContent = 'Start Transmission';
+}
+
+function restartRecognition() {
+    if (!listeningActive) {
+        return;
+    }
+
+    if (recognition) {
+        try {
+            recognition.abort();
+        } catch (error) {
+            console.log('Recognition abort failed:', error);
+        }
+        recognition = null;
+    }
+
+    setTimeout(() => {
+        if (listeningActive) {
+            startRecognition();
+        }
+    }, 500);
 }
 
 function startRecognition() {
@@ -90,16 +113,15 @@ function startRecognition() {
         return;
     }
 
-    const recognition = new SpeechRecognition();
+    recognition = new SpeechRecognition();
     recognition.lang = 'en-US';
     recognition.interimResults = true;
-    recognition.continuous = false;
+    recognition.continuous = true;
     recognition.maxAlternatives = 1;
 
     recognition.onstart = () => {
         console.log('Speech recognition gestart.');
-        transmissionBtn.textContent = 'Luisteren…';
-        transmissionBtn.disabled = true;
+        transmissionBtn.textContent = 'Listening…';
     };
 
     recognition.onresult = (event) => {
@@ -111,57 +133,39 @@ function startRecognition() {
 
         if (shouldActivateEasterEgg(transcript)) {
             console.log('Cat egg activated.');
-            alert('ACCESS GRANTED');
             document.body.classList.add('glitch');
             secretMessage.classList.remove('hidden');
-            retryCount = 0;
         } else if (shouldShowPartyVideo(transcript)) {
             console.log('Party egg activated.');
             showVideoOverlay();
-            retryCount = 0;
-        } else {
-            console.log('Easter egg not activated yet.');
-            alert('TRANSMISSION FAILED');
-            resetTransmissionUI();
         }
     };
 
     recognition.onerror = (event) => {
         console.log('Speech recognition error:', event.error);
-        if (retryCount < maxRetries && event.error !== 'not-allowed' && event.error !== 'service-not-allowed') {
-            retryCount += 1;
-            transmissionBtn.textContent = 'Listening failed, retrying…';
-            console.log('Retrying speech recognition, attempt', retryCount);
-            setTimeout(() => {
-                startRecognition();
-            }, 800);
-            return;
-        }
-
-        alert('Microfoontoegang is nodig om te luisteren.');
-        retryCount = 0;
-        resetTransmissionUI();
+        restartRecognition();
     };
 
     recognition.onend = () => {
-        console.log('Speech recognition ended.');
-        if (retryCount === 0) {
-            resetTransmissionUI();
-        }
+        console.log('Speech recognition ended. Restarting...');
+        restartRecognition();
     };
 
     recognition.start();
 }
 
-function activateTransmission() {
-    console.log('Activate transmission requested.');
-    transmissionBtn.disabled = true;
+function activateBackgroundListening() {
+    if (listeningActive) {
+        return;
+    }
+
+    listeningActive = true;
+    transmissionBtn.textContent = 'Listening…';
     requestMicrophonePermission()
         .then(() => startRecognition())
         .catch(error => {
             console.log('Microphone permission error:', error);
-            alert('Microfoontoegang is nodig om te luisteren.');
-            retryCount = 0;
+            listeningActive = false;
             resetTransmissionUI();
         });
 }
@@ -179,5 +183,8 @@ if (videoOverlay) {
 }
 
 if (transmissionBtn) {
-    transmissionBtn.addEventListener('click', activateTransmission);
+    transmissionBtn.addEventListener('click', activateBackgroundListening);
 }
+
+document.body.addEventListener('click', activateBackgroundListening, { once: true });
+document.body.addEventListener('touchstart', activateBackgroundListening, { once: true });
