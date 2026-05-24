@@ -17,8 +17,15 @@
     </div>
     <div class="content-column">
         <div class="secret-voice-panel">
+            <p class="voice-hint">zoek de geheime code om iets te laten gebeuren</p>
             <button id="transmission-btn" class="btn-transmission">Start Transmission</button>
             <p id="secret-message" class="secret-message hidden">SECRET TRANSMISSION DETECTED</p>
+        </div>
+        <div id="video-overlay" class="video-overlay hidden">
+            <div class="video-modal">
+                <button id="close-video-btn" class="close-video-btn" type="button">✕</button>
+                <video id="hidden-video" src="assets/pieterjan.mp4" playsinline controls muted></video>
+            </div>
         </div>
         <p class="artifact-info">Meer uitleg over de artefacten.</p>
         <div class="main">
