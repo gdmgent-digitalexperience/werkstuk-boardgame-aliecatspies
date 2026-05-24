@@ -9,23 +9,28 @@
 <body>
     <div id="start-screen">
         <button id="start-btn">Ben je klaar om het artefact te stelen?</button>
+        <a href="index.html" class="back-button">← Keer terug</a>
     </div>
     <div id="choice-screen" style="display: none;">
         <h2>Kies een moeilijkheidsgraad</h2>
-        <button class="difficulty-btn" data-difficulty="0">Makkelijk : 1 punt (groen)</button>
-        <button class="difficulty-btn" data-difficulty="1">Gemiddeld : 2 punten (blauw)</button>
-        <button class="difficulty-btn" data-difficulty="2">Moeilijk!! : 3 punten (oranje)</button>
+        <div class="difficulty-row">
+            <button class="difficulty-btn" data-difficulty="0">Makkelijk : 1 punt (groen)</button>
+            <button class="difficulty-btn" data-difficulty="1">Gemiddeld : 2 punten (blauw)</button>
+            <button class="difficulty-btn" data-difficulty="2">Moeilijk!! : 3 punten (oranje)</button>
+        </div>
+        <a href="index.html" class="back-button">← Keer terug</a>
     </div>
     <div id="game-screen" style="display: none;">
         <p id="difficulty-text"></p>
         <canvas id="roulette-canvas" width="400" height="400"></canvas>
         <button id="stop-btn" class="difficulty-btn">Tap om te stoppen</button>
+        <a href="index.html" class="back-button">← Keer terug</a>
     </div>
     <div id="result-screen" style="display: none;">
         <p id="result-text"></p>
         <video id="result-video" controls style="display: none;"></video>
         <audio id="result-audio" controls style="display: none;"></audio>
-        <a href="index.html" class="large-box back-button">Terug naar homepage</a>
+        <a href="index.html" class="large-box back-button">← Keer terug</a>
     </div>
     <script src="js/roulette.js"></script>
 </body>
