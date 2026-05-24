@@ -7,8 +7,8 @@ const secretMessage = document.getElementById('secret-message');
 const videoOverlay = document.getElementById('video-overlay');
 const videoElement = document.getElementById('hidden-video');
 const closeVideoBtn = document.getElementById('close-video-btn');
-const keywords = ['cats', 'watching', 'alien', 'protocol'];
-const partyKeywords = ['feest', 'dans', 'pieterjan', 'party'];
+const keywords = ['cats', 'watching', 'alien', 'protocol', 'secret'];
+const partyKeywords = ['party', 'pieterjan', 'feest', 'dans', 'muziek'];
 let recognition = null;
 let listeningActive = false;
 
@@ -33,7 +33,7 @@ function shouldActivateEasterEgg(transcript) {
     const normalized = transcript.toLowerCase();
     const foundKeywords = keywords.filter(word => normalized.includes(word));
     console.log('Transcript:', transcript, 'Matched cat keywords:', foundKeywords);
-    return /the cats are watching/i.test(transcript) || foundKeywords.length >= 1;
+    return foundKeywords.length >= 1;
 }
 
 function shouldShowPartyVideo(transcript) {
