@@ -113,10 +113,36 @@ h1, h2, h3, h4, h5, h6, p {
     color: white;
 }
 
+.box.green {
+    background: linear-gradient(180deg, rgba(34,197,94,0.22), rgba(16,185,129,0.12));
+    border: 1px solid rgba(34,197,94,0.25);
+}
+
+.box.blue {
+    background: linear-gradient(180deg, rgba(96,165,250,0.22), rgba(147,197,253,0.12));
+    border: 1px solid rgba(96,165,250,0.25);
+}
+
+.box.red {
+    background: linear-gradient(180deg, rgba(248,113,113,0.22), rgba(251,113,133,0.12));
+    border: 1px solid rgba(248,113,113,0.25);
+}
+
+.box.green:hover {
+    background: linear-gradient(180deg, rgba(34,197,94,0.28), rgba(16,185,129,0.16));
+}
+
+.box.blue:hover {
+    background: linear-gradient(180deg, rgba(96,165,250,0.28), rgba(147,197,253,0.16));
+}
+
+.box.red:hover {
+    background: linear-gradient(180deg, rgba(248,113,113,0.28), rgba(251,113,133,0.16));
+}
+
 .box:hover {
     transform: translateY(-6px);
     box-shadow: 0 14px 36px rgba(0,0,0,0.35);
-    background: linear-gradient(180deg, rgba(124,58,237,0.18), rgba(168,85,247,0.10));
 }
 
 .box.clicked {
