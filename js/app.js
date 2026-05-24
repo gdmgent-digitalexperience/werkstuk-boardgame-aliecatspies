@@ -8,7 +8,7 @@ const videoOverlay = document.getElementById('video-overlay');
 const videoElement = document.getElementById('hidden-video');
 const closeVideoBtn = document.getElementById('close-video-btn');
 const keywords = ['cats', 'watching', 'alien', 'protocol', 'secret'];
-const partyKeywords = ['party', 'pieterjan', 'feest', 'dans', 'muziek'];
+const partyKeywords = ['party', 'pieterjan', 'feest', 'dans', 'muziek', 'music', 'pj', 'dance'];
 let recognition = null;
 let listeningActive = false;
 
@@ -47,6 +47,17 @@ function shouldShowPartyVideo(transcript) {
     return foundPartyKeywords.length >= 1;
 }
 
+function triggerCatEasterEgg() {
+    const body = document.body;
+    body.classList.remove('glitch');
+    void body.offsetWidth;
+    body.classList.add('glitch');
+    secretMessage.classList.remove('hidden');
+    setTimeout(() => {
+        body.classList.remove('glitch');
+    }, 1200);
+}
+
 function showVideoOverlay() {
     if (!videoOverlay || !videoElement) {
         console.log('Video overlay elements ontbreken.');
@@ -55,12 +66,12 @@ function showVideoOverlay() {
 
     videoElement.muted = true;
     videoElement.currentTime = 0;
+    videoOverlay.classList.remove('hidden');
+    videoOverlay.classList.add('visible');
+
     videoElement.play().catch(error => {
         console.log('Video autoplay blocked or failed:', error);
     });
-
-    videoOverlay.classList.remove('hidden');
-    videoOverlay.classList.add('visible');
 }
 
 function hideVideoOverlay() {
@@ -131,13 +142,12 @@ function startRecognition() {
 
         console.log('Speech result event:', transcript);
 
-        if (shouldActivateEasterEgg(transcript)) {
-            console.log('Cat egg activated.');
-            document.body.classList.add('glitch');
-            secretMessage.classList.remove('hidden');
-        } else if (shouldShowPartyVideo(transcript)) {
+        if (shouldShowPartyVideo(transcript)) {
             console.log('Party egg activated.');
             showVideoOverlay();
+        } else if (shouldActivateEasterEgg(transcript)) {
+            console.log('Cat egg activated.');
+            triggerCatEasterEgg();
         }
     };
 

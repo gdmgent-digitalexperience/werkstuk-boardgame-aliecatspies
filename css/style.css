@@ -136,27 +136,35 @@ h1, h2, h3, h4, h5, h6, p {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.82);
-    z-index: 9999;
+    background: rgba(0, 0, 0, 0.88);
+    z-index: 99999;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 16px;
+    backdrop-filter: blur(4px);
 }
 
 .video-overlay.visible {
     display: flex;
 }
 
+.video-overlay.hidden {
+    display: none;
+}
+
 .video-modal {
-    width: 100%;
-    max-width: 950px;
-    max-height: 90vh;
+    width: min(100%, 960px);
+    max-width: 960px;
+    max-height: calc(100vh - 40px);
     position: relative;
-    background: rgba(10, 10, 10, 0.96);
+    background: rgba(10, 10, 10, 0.98);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 18px;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .close-video-btn {
@@ -182,8 +190,8 @@ h1, h2, h3, h4, h5, h6, p {
 
 #hidden-video {
     width: 100%;
-    height: auto;
-    max-height: 84vh;
+    height: 100%;
+    object-fit: contain;
     background: #000;
     display: block;
 }
@@ -193,7 +201,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 body.glitch {
-    animation: shake 0.14s ease-in-out 4, glitch-color 0.24s linear 1;
+    animation: shake 0.42s ease-in-out 4, glitch-color 0.6s linear 1;
     position: relative;
     overflow: hidden;
 }
@@ -206,7 +214,7 @@ body.glitch::after {
     pointer-events: none;
     mix-blend-mode: screen;
     opacity: 0.65;
-    animation: glitch-scan 0.35s ease-in-out 1;
+    animation: glitch-scan 0.7s ease-in-out 1;
 }
 
 body.glitch::before {
