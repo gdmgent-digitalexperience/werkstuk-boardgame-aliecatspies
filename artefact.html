@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artefact Uitleg</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="page-container">
+        <a class="back-button" href="index.html">← Terug</a>
+        <header id="artifact-header">
+            <h1 id="artifact-title">Artefact</h1>
+            <p id="artifact-sub">Kies een artefact op de homepage voor meer informatie.</p>
+        </header>
+
+        <section id="artifact-content">
+            <p id="artifact-desc">Selecteer een artefact om de uitleg te lezen.</p>
+        </section>
+    </div>
+
+    <script>
+        const artifacts = {
+            "flat-eart-pizza": {
+                title: "Flat Eart Pizza",
+                desc: "Een mysterieuze pizza waarvan men zegt dat hij uit een parallelle dimensie komt. Helpt bij het vinden van geheime kaarten."
+            },
+            "ufo-fish-food": {
+                title: "UFO Fish Food",
+                desc: "Buitenaards visvoer dat rare effecten heeft op katten en vissen. Kan kleine voorwerpen laten zweven."
+            },
+            "tinfoil-hat": {
+                title: "Tinfoil Hat",
+                desc: "Beschermt tegen mind-control-golven — of maakt je juist zichtbaarder voor buitenaardse luisteraars."
+            },
+            "alien-milkshake": {
+                title: "Alien Milkshake",
+                desc: "Een energiebron die tijdelijk je zintuigen versterkt. Gebruik met voorzichtigheid."
+            },
+            "government-spy-camera": {
+                title: "Government Spy Camera",
+                desc: "Een oude surveillancemodule met verborgen beelden. Kan aanwijzingen tonen naar verborgen locaties."
+            },
+            "moon-cheese": {
+                title: "Moon Cheese",
+                desc: "Fragmenten van de maan, nuttig als ruilmiddel met ruimtewezens."
+            },
+            "area-51-keycard": {
+                title: "Area 51 Keycard",
+                desc: "Toegangspas tot een streng beveiligde faciliteit. Zeer waardevol en gevaarlijk."
+            },
+            "illuminati-cat-eye": {
+                title: "Illuminati Cat Eye",
+                desc: "Een amulet met vreemde krachten — geeft visioenen van verborgen netwerken."
+            },
+            "reptile-crown": {
+                title: "Reptile Crown",
+                desc: "Kroonstuk van een oude reptielenbeschaving. Geeft prestige, kan deuren openen."
+            },
+            "mind-control-antenna": {
+                title: "Mind Control Antenna",
+                desc: "Een experimenteel apparaat dat gedachten kan beïnvloeden. Gevaarlijk in verkeerde handen."
+            },
+            "secret-alien-file": {
+                title: "Secret Alien File",
+                desc: "Gecodeerde documenten met informatie over buitenaardse bezoeken. Kan puzzels bevatten."
+            },
+            "ancient-ufo-tablet": {
+                title: "Ancient Ufo Tablet",
+                desc: "Een oud artefact met onbekende symbolen. Mogelijk een kaart of sleutel."
+            },
+            "time-travel-clock": {
+                title: "Time Travel Clock",
+                desc: "Een klok die naar verluidt tijdsverschijnselen kan beïnvloeden — gebruik met zorg."
+            },
+            "black-hole-core": {
+                title: "Black Hole Core",
+                desc: "Een klein deeltje van extreem gewicht en mysterie. Zeer instabiel."
+            },
+            "catnip-crystal": {
+                title: "Catnip Crystal",
+                desc: "Kristallen die katten extatisch maken — handig voor afleiding."
+            },
+            "the-forbidden-donut": {
+                title: "The Forbidden Donut",
+                desc: "Een donut met verboden topping; eten kan rare bijeffecten hebben."
+            },
+            "pyramid-battery": {
+                title: "Pyramid Battery",
+                desc: "Een energiecel met een lange ladingstijd, gebruikt in oude apparaten."
+            },
+            "interfalactic-brain": {
+                title: "Interfalactic Brain",
+                desc: "Een geavanceerd biologisch device dat intelligente hints kan genereren."
+            }
+        };
+
+        function slugFromHash() {
+            return window.location.hash ? window.location.hash.substring(1) : null;
+        }
+
+        function renderArtifact() {
+            const slug = slugFromHash();
+            const titleEl = document.getElementById('artifact-title');
+            const subEl = document.getElementById('artifact-sub');
+            const descEl = document.getElementById('artifact-desc');
+
+            if (slug && artifacts[slug]) {
+                const art = artifacts[slug];
+                titleEl.textContent = art.title;
+                subEl.textContent = "Meer uitleg over het artefact:";
+                descEl.textContent = art.desc;
+            } else if (slug) {
+                titleEl.textContent = 'Onbekend artefact';
+                subEl.textContent = '';
+                descEl.textContent = 'Er is nog geen uitleg beschikbaar voor dit artefact.';
+            } else {
+                titleEl.textContent = 'Artefact Uitleg';
+                subEl.textContent = 'Kies een artefact op de homepage voor meer informatie.';
+                descEl.textContent = '';
+            }
+        }
+
+        window.addEventListener('hashchange', renderArtifact);
+        window.addEventListener('load', renderArtifact);
+    </script>
+</body>
+</html>
