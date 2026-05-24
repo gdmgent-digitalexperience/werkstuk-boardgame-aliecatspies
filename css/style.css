@@ -256,6 +256,17 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 /* New styles for the new roulette */
+#start-screen, #choice-screen, #game-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+}
+
 #start-screen, #choice-screen, #game-screen, #difficulty-text {
     font-size: 18px;
     font-weight: bold;
@@ -442,23 +453,33 @@ h1, h2, h3, h4, h5, h6, p {
     body {
         padding: 20px;
         min-height: 100vh;
+        flex-direction: column;
+        align-items: stretch;
     }
 
     .sidebar {
         margin-right: 0;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .content-column {
+        width: 100%;
     }
 
     .large-box {
         width: 100%;
-        max-width: 320px;
+        max-width: 100%;
         height: 160px;
         margin: 0 auto;
         font-size: 16px;
     }
 
     .main {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         grid-template-rows: auto;
     }
 
@@ -478,6 +499,28 @@ h1, h2, h3, h4, h5, h6, p {
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
 
+    .makers-section .team-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+    }
+
+    .makers-section .avatar {
+        margin: 0 0 14px 0;
+    }
+
+    .makers-section .team-card h3 {
+        font-size: 16px;
+    }
+
+    .makers-section .team-card .role {
+        font-size: 12px;
+    }
+
+    .makers-section .team-card .bio {
+        font-size: 13px;
+    }
+
     .page-container {
         max-width: 100%;
         padding: 16px;
@@ -493,10 +536,15 @@ h1, h2, h3, h4, h5, h6, p {
         min-height: 60px;
     }
 
+    .difficulty-row {
+        flex-direction: column;
+        overflow-x: visible;
+    }
+
     .difficulty-row .difficulty-btn {
-        width: auto;
-        min-width: 240px;
-        flex: 0 0 auto;
+        width: 100%;
+        min-width: auto;
+        flex: 1 1 auto;
     }
 
     #game-screen {
@@ -520,10 +568,15 @@ h1, h2, h3, h4, h5, h6, p {
         justify-content: flex-start;
         min-height: 100vh;
         height: auto;
+        flex-direction: column;
+        align-items: stretch;
     }
 
     .sidebar {
         gap: 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .large-box {
@@ -532,8 +585,16 @@ h1, h2, h3, h4, h5, h6, p {
     }
 
     .main {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px;
+    }
+
+    .makers-hero h1 {
+        font-size: 26px;
+    }
+
+    .makers-hero .lead {
+        font-size: 14px;
     }
 
     .box {
@@ -552,7 +613,25 @@ h1, h2, h3, h4, h5, h6, p {
     }
 
     .makers-section .team-card {
-        padding: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 14px;
+    }
+
+    .makers-section .avatar {
+        margin: 0 0 12px 0;
+    }
+
+    .makers-section .team-card h3 {
+        font-size: 15px;
+    }
+
+    .makers-section .team-card .role {
+        font-size: 12px;
+    }
+
+    .makers-section .team-card .bio {
+        font-size: 13px;
     }
 
     .makers-section .back-button {
@@ -568,5 +647,63 @@ h1, h2, h3, h4, h5, h6, p {
     #result-screen p {
         font-size: 16px;
         margin: 14px 0;
+    }
+}
+
+.rules-image-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.rules-full {
+    max-width: 80%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+.rules-split {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.rules-half {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+.rules-half img {
+    width: 200%;
+    height: auto;
+    display: block;
+    transform-origin: top left;
+}
+
+.rules-half-left img {
+    transform: translateX(0%);
+}
+
+.rules-half-right img {
+    transform: translateX(-50%);
+}
+
+@media (max-width: 600px) {
+    .rules-full {
+        display: none;
+    }
+
+    .rules-split {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .rules-half {
+        min-height: 240px;
     }
 }
